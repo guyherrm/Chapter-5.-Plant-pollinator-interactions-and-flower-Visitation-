@@ -1,21 +1,13 @@
-# =========================
-# Load packages
-# =========================
+
 library(lme4)
 library(lmerTest)
 library(MuMIn)
 
-# Required for R² stability
 options(na.action = "na.fail")
 
-# =========================
-# Load data
-# =========================
+
 df <- read.csv("../model_df.csv")
 
-# =========================
-# Predictors
-# =========================
 predictors <- c(
   "time_since_last_minutes",
   "clock_time",
@@ -26,36 +18,26 @@ predictors <- c(
 
 predictor_seq <- paste(predictors, collapse = " + ")
 
-# =========================
-# Model formula (nested random effects)
-# =========================
+
 formula <- as.formula(
-  paste("time ~", predictor_seq, "+ (1 | data_point/flower_code)")
+  paste("time ~", predictor_seq, "+ (1 | data_point/flower_code)") # nested random effects
 )
 
-# =========================
-# Fit model
-# =========================
-model <- lmer(formula, data = df)
 
-# =========================
-# Model summary
-# =========================
-print(summary(model))
+model <- lmer(formula, data = df) #model fit
 
-# =========================
-# Confidence intervals (95%)
-# =========================
-ci <- confint(model, method = "Wald")
+
+print(summary(model)) #summary
+
+
+ci <- confint(model, method = "Wald") #confidence intervals
 print(ci)
 
-# =========================
-# Fixed effects + p-values
-# =========================
-coefs <- summary(model)$coefficients
+
+coefs <- summary(model)$coefficients # fixed effect coefficients
 
 pvals <- coefs[, "Pr(>|t|)"]
-pvals_bonf <- p.adjust(pvals, method = "bonferroni")
+pvals_bonf <- p.adjust(pvals, method = "bonferroni") #did boneferroni adjustment (not used)
 
 results <- data.frame(
   Estimate = fixef(model),
@@ -67,10 +49,8 @@ results <- data.frame(
 
 print(results)
 
-# =========================
-# R² (variance explained)
-# =========================
-r2 <- r.squaredGLMM(model)
+
+r2 <- r.squaredGLMM(model)#Var explained
 
 r2_table <- data.frame(
   R2_marginal = r2[1],
@@ -86,9 +66,9 @@ model_metrics <- data.frame(
 )
 
 print(model_metrics)
-# =========================
-# Save outputs
-# =========================
+
+#Save the outputs
+
 write.csv(
   results,
   "results/lmm_results.csv",
