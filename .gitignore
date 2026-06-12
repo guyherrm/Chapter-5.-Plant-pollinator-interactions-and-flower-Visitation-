@@ -1,0 +1,7 @@
+ch5/
+.git
+.env
+__pycache__/
+.DS_Store
+.ipynb_checkpoints
+
