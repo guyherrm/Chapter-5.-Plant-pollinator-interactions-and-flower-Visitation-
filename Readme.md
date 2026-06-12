@@ -16,8 +16,9 @@ The chapter has the following aims which the analysis looks to address:
 
 'results/': Folder with results of R script analysis. Results for the jupyternotebook are displayed within the notebook. However, these outputs are also displayed in the notebook
 
-'plot_outputs/': output graphs from analysis
+'plot_outputs/': Output graphs from analysis
 
+'utils': Folder containing files with functions used in notebook analysis
 ## Requirements
 
 Python 3.x
