@@ -30,9 +30,13 @@ R module requirements: mgcv, lme4, lmerTest, MuMIn
 Jupyter notebook must be installed. Best to run using a virtual environment that is linked with the notebook. How to do this is shown below:
 
 pip install virtualenv 
+
 virtualenv ch5
+
 source ch5/bin/activate
+
 pip install -r requirements.txt
+
 python3 -m ipykernel install --user --name=ch5 --display-name="Chapter5"
 
 Then in your jupyter notebook, under kernel (top right) select Chapter5
